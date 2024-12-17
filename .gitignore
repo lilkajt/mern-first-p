@@ -1,0 +1,79 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+.env
+.env.test
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Build outputs
+build/
+dist/
+tmp/
+temp/
+
+# Debugging
+debug/
+*.swp
+*.sublime-project
+*.sublime-workspace
+*.vscode/
+.vscode/
+
+# React / Frontend
+*.cache
+.cache/
+public/*.map
+*.map
+.DS_Store
+npm-debug.log
+coverage/
+eslintcache
+
+# MongoDB dumps
+dump/
+
+# Misc
+*.tgz
+*.tar.gz
+*.zip
+*.bak
+*.sqlite
+*.sqlite3
+
+# IDE files
+.idea/
+*.iml
+*.vs/
+.vscode/
+*.code-workspace
+
+# Optional OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Optional MacOS files
+*.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+__MACOSX/
+
+# Optional Windows files
+$RECYCLE.BIN/
