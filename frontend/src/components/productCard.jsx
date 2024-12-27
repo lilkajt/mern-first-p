@@ -6,13 +6,31 @@ import { useProductStore } from "@/store/product";
 import { Toaster, toaster } from "@/components/ui/toaster"
 import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Button } from "./ui/button";
+import { useState } from "react";
 
 function ProductCard({product}) {
+    const [updatedProduct, setUpdatedProduct] = useState(product);
     const textColor = useColorModeValue("gray.600", "gray.200");
     const bg = useColorModeValue("white", "gray.800");
-    const {deleteProduct} = useProductStore();
+    const {deleteProduct, editProduct} = useProductStore();
     const handleDeleteProduct = async (id) => {
         const {success, message} = await deleteProduct(id);
+        if (!success){
+            toaster.create({
+              title: "Error",
+              description: message,
+              type: "error",
+            })
+        } else {
+            toaster.create({
+              title: "Success",
+              description: message,
+              type: "success",
+            })
+        }
+    }
+    const handleUpdateProduct = async (id, updatedProduct) => {
+        const {success, message} = await editProduct(id, updatedProduct);
         if (!success){
             toaster.create({
               title: "Error",
@@ -45,7 +63,7 @@ function ProductCard({product}) {
                 ${product.price}
             </Text>
             <HStack spacing={2}>
-                <DialogRoot placement="center">
+                <DialogRoot placement="center" size={'lg'}>
                 <DialogTrigger asChild>
                     <IconButton colorPalette={'blue'} ><FaEdit /></IconButton>
                 </DialogTrigger>
@@ -60,24 +78,32 @@ function ProductCard({product}) {
                             placeholder="Product name"
                             name="name"
                             variant="subtle"
+                            value={updatedProduct.name}
+                            onChange={(e) => setUpdatedProduct({...updatedProduct, name: e.target.value})}
                             />
                             <Input
                             placeholder="Price"
                             name="price"
                             type="number"
                             variant="subtle"
+                            value={updatedProduct.price}
+                            onChange={(e) => setUpdatedProduct({...updatedProduct, price: e.target.value})}
                             />
                             <Input
                             placeholder="Image url"
                             name="image"
                             variant="subtle"
+                            value={updatedProduct.image}
+                            onChange={(e) => setUpdatedProduct({...updatedProduct, image: e.target.value})}
                             />
                         </VStack>
                     </DialogBody>
                     <DialogFooter>
-                        <Button>Save</Button>
                         <DialogActionTrigger asChild>
-                        <Button variant="outline">Cancel</Button>
+                            <Button onClick={() => handleUpdateProduct(product._id,updatedProduct)}>Save</Button>
+                        </DialogActionTrigger>
+                        <DialogActionTrigger asChild>
+                            <Button variant="outline">Cancel</Button>
                         </DialogActionTrigger>
                     </DialogFooter>
                 </DialogContent>
